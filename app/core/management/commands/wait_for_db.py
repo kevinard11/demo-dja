@@ -23,7 +23,7 @@ class Command(BaseCommand):
                 db_up = True
             except (Psycopg2OpError, OperationalError):
                 self.stdout.write('Database unavailable, waiting 1 second...')
-                if i == 9:
+                if i == 30:
                     self.stdout.write('Database unavailable, \
                     try again later...')
                     break
@@ -31,4 +31,5 @@ class Command(BaseCommand):
                 time.sleep(1)
             i += 1
 
-        self.stdout.write(self.style.SUCCESS('Database available!'))
+        if db_up:
+            self.stdout.write(self.style.SUCCESS('Database available!'))
